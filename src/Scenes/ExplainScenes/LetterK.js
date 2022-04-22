@@ -15,6 +15,8 @@ left : 0%;
 top : 0%;
 `
 
+let timerList = []
+
 export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _geo, _baseGeo }, ref) {
 
 
@@ -43,19 +45,23 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
         3 //zoom
     ]
 
-    const objectPos = {
-        ani: 1, w: 1, l: 1, b: -0.0, p: 'lion'
-    }
+
     useEffect(
         () => {
 
             audioList.bodyAudio1.src = prePathUrl() + "sounds/origin/EP_02_Audio_02.mp3" //hello voice
             audioList.bodyAudio2.src = prePathUrl() + "sounds/origin/EP_02_Audio_48.mp3"   //exlain voice  
 
-            moveFunc(aniObjectRef, 0, 'translateX(-35%)')
 
+            moveFunc(aniObjectRef, 0, 'translateX(130%)')
+            moveFunc(backgroundRef, 0, 'translateX(-50%)')
 
             return () => {
+
+                audioList.bodyAudio1.pause();
+                audioList.bodyAudio2.pause();
+                timerList.map(timer => clearTimeout(timer))
+                
             }
         }, []
     )
@@ -68,13 +74,12 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
 
     function introFunc() {
         let introDuration = durationList[0]
-        moveFunc(aniObjectRef, introDuration, 'translateX(20%)')
+        moveFunc(aniObjectRef, introDuration, 'translateX(80%)')
 
-        setTimeout(() => {
+        timerList[0] = setTimeout(() => {
             audioList.bodyAudio1.play()
             setAniState(1)
-
-            setTimeout(() => {
+            timerList[2] = setTimeout(() => {
                 goFunc()
             }, audioList.bodyAudio1.duration * 1000);
         }, introDuration * 1000);
@@ -84,13 +89,13 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
         setAniState(0)
         let moveDuration = durationList[1]
 
-        moveFunc(backgroundRef, moveDuration, 'translateX(-40%)')
-        moveFunc(aniObjectRef, moveDuration, 'translateX(55%)')
+        moveFunc(backgroundRef, moveDuration, 'translateX(30%)')
+        moveFunc(aniObjectRef, moveDuration, 'translateX(20%)')
 
-        setTimeout(() => {
+        timerList[1] = setTimeout(() => {
             setAniState(2)
-            audioList.bodyAudio2.play()
-            setTimeout(() => {
+            audioList.bodyAudio2.play();
+            timerList[5] = setTimeout(() => {
                 zoomFunc()
             }, 1000);
 
@@ -98,23 +103,25 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
     }
 
     function zoomFunc() {
-        moveFunc(backgroundRef, durationList[2], 'scale(0.38) translate(-90%,42%)')
+        moveFunc(backgroundRef, durationList[2], 'scale(0.7) translate(10%,10%)')
 
-        setTimeout(() => {
+        timerList[3] = setTimeout(() => {
             nextFunc()
         }, durationList[2] * 1000 + 3000);
     }
 
     React.useImperativeHandle(ref, () => ({
         playGame: () => {
-            setTimeout(() => {
+            timerList[4] = setTimeout(() => {
                 introFunc()
             }, 500);
 
         },
     }))
 
-
+    const objectPos = {
+        ani: 0, w: 0.4, l: -0.1, b: 0.05, p: 'SB02_BG_14_FG'
+    }
 
     return (
         <div className="aniObject">
@@ -128,11 +135,9 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
                 }}>
                 {/* bg */}
                 <BaseImage
-                    scale={2.85}
-                    posInfo={{ l: 0.0, b: -0.4 }}
-                    url={"movebg/SB02_BG_15.svg"} />
-
-
+                    scale={2}
+                    posInfo={{ l: -0.5, b: -0.3 }}
+                    url={"movebg/SB02_BG_14.svg"} />
 
                 {
                     objectPos.ani && <Player
@@ -153,13 +158,6 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
                     >
                     </Player>
                 }
-
-                <BaseImage
-                    scale={2.85}
-                    posInfo={{ l: 0.0, b: -0.7 }}
-                    url={"fg/SB02_BG_17_FG_2.svg"} />
-                {/* object */}
-
                 {
                     !objectPos.ani &&
                     <BaseImage
@@ -168,7 +166,9 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
                         url={"fg/" + objectPos.p + ".svg"} />
                 }
                 {/* character */}
-                <BaseDiv ref={aniObjectRef}
+                <BaseDiv
+                    ref={aniObjectRef}
+
                 >
                     {
                         animationPathList.map((value, index) =>
@@ -187,7 +187,7 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
                                     pointerEvents: 'none',
                                     overflow: 'visible',
                                     transform: 'scale(' + animationScaleList[index].s +
-                                        '%) translate(' + animationScaleList[index].t + ')'
+                                        '%) translate(' + animationScaleList[index].t + ') rotateY(180deg)'
                                 }}
                             >
                             </Player>
@@ -196,6 +196,6 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
                 </BaseDiv>
 
             </div>
-        </div>
+        </div >
     );
 })

@@ -16,6 +16,7 @@ top : 0%;
 `
 
 let rainAniNum = 0;
+let timerList = []
 export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _geo, _baseGeo }, ref) {
 
 
@@ -41,7 +42,7 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
     ]
 
     const durationList = [
-        1, //intro
+        3, //intro
         3, //go
         3 //zoom
     ]
@@ -52,20 +53,21 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
     useEffect(
         () => {
 
-            audioList.bodyAudio1.src = returnVoicePath(0, '01') //hello voice
-            audioList.bodyAudio2.src = returnVoicePath(0, '02')   //exlain voice    
+            audioList.bodyAudio1.src = prePathUrl() + "sounds/origin/EP_02_Audio_02.mp3" //hello voice
+            audioList.bodyAudio2.src = prePathUrl() + "sounds/origin/EP_02_Audio_61.mp3"   //exlain voice  
+            audioList.bodyAudio3.src = prePathUrl() + "sounds/origin/EP_02_Audio_62.mp3"   //exlain voice  
 
-            moveFunc(aniObjectRef, 0, 'translateX(10%)')
-
-            rainAniNum = playEnvirAni(rainFrameList, 200)
-
-            setTimeout(() => {
-                introFunc()
-            }, 1000);
-
+            moveFunc(aniObjectRef, 0, 'translateX(-50%)')
 
             return () => {
                 pauseEnvirAni(rainAniNum)
+
+
+                audioList.bodyAudio1.pause()
+                audioList.bodyAudio2.pause()
+                audioList.bodyAudio3.pause();
+
+                timerList.map(timer => clearTimeout(timer))
             }
         }, []
     )
@@ -78,14 +80,18 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
 
     function introFunc() {
         let introDuration = durationList[0]
-        // moveFunc(aniObjectRef, introDuration, 'translateX(20%)')
+        moveFunc(aniObjectRef, introDuration, 'translateX(20%)')
 
-        setTimeout(() => {
+        timerList[0] = setTimeout(() => {
             setAniState(1)
+            audioList.bodyAudio1.play()
+            // rainFrameList.map(item => item.current.sertClass('showObject'))
 
-            setTimeout(() => {
-                zoomFunc()
-            }, 2000);
+            timerList[1] = setTimeout(() => {
+                rainAniNum = playEnvirAni(rainFrameList, 200)
+                goFunc()
+            }, audioList.bodyAudio1.duration * 1000);
+
         }, introDuration * 1000);
     }
 
@@ -93,31 +99,35 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
         setAniState(0)
         let moveDuration = durationList[1]
 
-        moveFunc(backgroundRef, moveDuration, 'translateX(-40%)')
-        moveFunc(aniObjectRef, moveDuration, 'translateX(55%)')
+        timerList[2] = setTimeout(() => {
+            audioList.bodyAudio2.play();
+            timerList[3] = setTimeout(() => {
+                timerList[4] = setTimeout(() => {
+                    zoomFunc()
+                }, 1000);
+            }, moveDuration * 1000);
 
-        setTimeout(() => {
-
-
-            setTimeout(() => {
-                zoomFunc()
-            }, 2000);
-
-        }, moveDuration * 1000);
+        }, 1000);
     }
 
     function zoomFunc() {
+        audioList.bodyAudio3.play();
         setAniState(2)
-        moveFunc(backgroundRef, durationList[2], 'scale(0.8) translate(-20%,0%)')
 
-        setTimeout(() => {
-            // nextFunc()
-        }, durationList[2] * 1000 + 2000);
+        timerList[5] = setTimeout(() => {
+            moveFunc(backgroundRef, durationList[2], 'scale(0.8) translate(-20%,0%)')
+
+            timerList[6] = setTimeout(() => {
+                nextFunc()
+            }, durationList[2] * 1000 + 3000);
+        }, 1000);
+
+
     }
 
     React.useImperativeHandle(ref, () => ({
         playGame: () => {
-            setTimeout(() => {
+            timerList[7] = setTimeout(() => {
                 introFunc()
             }, 500);
 
@@ -151,6 +161,7 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
                             posInfo={{
                                 l: 0, t: -0.15
                             }}
+                            className='hideObject'
                             url={"animations/SB02_Rain_animation_0" + (index + 1) + ".svg"}
                         />
                     )

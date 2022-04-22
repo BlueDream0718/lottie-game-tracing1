@@ -15,6 +15,8 @@ left : 0%;
 top : 0%;
 `
 
+let timerList = []
+
 export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _geo, _baseGeo }, ref) {
 
 
@@ -47,18 +49,19 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
     useEffect(
         () => {
 
-            audioList.bodyAudio1.src = returnVoicePath(0, '01') //hello voice
-            audioList.bodyAudio2.src = returnVoicePath(0, '02')   //exlain voice    
+            audioList.bodyAudio1.src = prePathUrl() + "sounds/origin/EP_02_Audio_02.mp3" //hello voice
+            audioList.bodyAudio2.src = prePathUrl() + "sounds/origin/EP_02_Audio_64.mp3"   //exlain voice  
 
             moveFunc(aniObjectRef, 0, 'translateX(130%)')
             moveFunc(backgroundRef, 0, 'translateX(-50%)')
 
-            setTimeout(() => {
-                introFunc()
-            }, 1000);
-
 
             return () => {
+
+                audioList.bodyAudio1.pause()
+                audioList.bodyAudio2.pause()
+
+                timerList.map(timer => clearTimeout(timer))
             }
         }, []
     )
@@ -73,12 +76,12 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
         let introDuration = durationList[0]
         moveFunc(aniObjectRef, introDuration, 'translateX(80%)')
 
-        setTimeout(() => {
+        timerList[0] = setTimeout(() => {
             setAniState(1)
-
-            setTimeout(() => {
+            audioList.bodyAudio1.play()
+            timerList[1] = setTimeout(() => {
                 goFunc()
-            }, 2000);
+            }, audioList.bodyAudio1.duration * 1000);
         }, introDuration * 1000);
     }
 
@@ -89,10 +92,10 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
         moveFunc(backgroundRef, moveDuration, 'translateX(30%)')
         moveFunc(aniObjectRef, moveDuration, 'translateX(20%)')
 
-        setTimeout(() => {
+        timerList[2] = setTimeout(() => {
             setAniState(2)
-
-            setTimeout(() => {
+            audioList.bodyAudio2.play()
+            timerList[3] = setTimeout(() => {
                 zoomFunc()
             }, 2000);
 
@@ -102,14 +105,14 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
     function zoomFunc() {
         moveFunc(backgroundRef, durationList[2], 'scale(0.6) translate(0%,20%)')
 
-        setTimeout(() => {
-            // nextFunc()
-        }, durationList[2] * 1000 + 2000);
+        timerList[4] = setTimeout(() => {
+            nextFunc()
+        }, durationList[2] * 1000 + 3000);
     }
 
     React.useImperativeHandle(ref, () => ({
         playGame: () => {
-            setTimeout(() => {
+            timerList[5] = setTimeout(() => {
                 introFunc()
             }, 500);
 

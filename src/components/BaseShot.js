@@ -16,7 +16,7 @@ let backAudio = loadSound('bMusic', true)
 backAudio.loop = true;
 backAudio.volume = .12;
 
-const currentSceneNumber = 2;
+const currentSceneNumber = 3;
 
 // let primaryAudio = loadSound('SB03_01')
 // let titleAudio = loadSound('SB03_02')
@@ -68,7 +68,7 @@ let audioList = {
     audioYeah, audioWoo, audioSuccess,
     letterAudio, audioBuzz, audioClap,
     audioClick, audioTing, replayAudio,
-    reviewAudio1, reviewAudio2, reviewAudio3,tapAudio
+    reviewAudio1, reviewAudio2, reviewAudio3,tapAudio,bodyAudio3
 }
 
 var isOff = false;
