@@ -31,9 +31,9 @@ let wordAudio1 = loadSound(letterTurnList[currentSceneNumber] + '/SB01_' + wordV
 let wordAudio2 = loadSound(letterTurnList[currentSceneNumber] + '/SB01_' + wordVoiceList[currentSceneNumber][1])  //word voice
 let wordAudio3 = loadSound(letterTurnList[currentSceneNumber] + '/SB01_' + wordVoiceList[currentSceneNumber][2])  //word voice
 
-let reviewAudio1 = loadSound("word/" + letterTurnList[currentSceneNumber] + '/1')  //word voice
-let reviewAudio2 = loadSound("word/" + letterTurnList[currentSceneNumber] + '/2')  //word voice
-let reviewAudio3 = loadSound("word/" + letterTurnList[currentSceneNumber] + '/3')  //word voice
+let reviewAudio1 = loadSound("simple_word/" + letterTurnList[currentSceneNumber] + '/1')  //word voice
+let reviewAudio2 = loadSound("simple_word/" + letterTurnList[currentSceneNumber] + '/2')  //word voice
+let reviewAudio3 = loadSound("simple_word/" + letterTurnList[currentSceneNumber] + '/3')  //word voice
 
 let letterAudio = loadSound(letterTurnList[currentSceneNumber] + '/SB01_' + letterVoiceList[currentSceneNumber])
 
