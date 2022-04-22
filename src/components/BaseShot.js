@@ -14,9 +14,9 @@ var oldBackgroundImage = 'SB_04_intro_BG_01';
 
 let backAudio = loadSound('bMusic', true)
 backAudio.loop = true;
-backAudio.volume = .1;
+backAudio.volume = .12;
 
-const currentSceneNumber = 6;
+const currentSceneNumber = 0;
 
 // let primaryAudio = loadSound('SB03_01')
 // let titleAudio = loadSound('SB03_02')

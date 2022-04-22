@@ -12,7 +12,7 @@ export default function Scene1({ nextFunc, _geo }) {
                 className='excellentText'
                 style={{
                     position: "fixed", width: _geo.width * 0.55,
-                    left: _geo.width * 0.2 + _geo.left
+                    left: _geo.width * 0.185 + _geo.left
                     , top: (_geo.height * 0.1 + _geo.top) + "px",
                     pointerEvents: 'none',
                     userSelect: 'none'
@@ -24,7 +24,7 @@ export default function Scene1({ nextFunc, _geo }) {
             <div
                 style={{
                     position: "fixed", width: _geo.width * 0.15,
-                    left: _geo.width * 0.18 + _geo.left
+                    left: _geo.width * 0.16 + _geo.left
                     , bottom: (_geo.height * 0.4 + _geo.top) + "px",
                     pointerEvents: 'none',
                     userSelect: 'none'

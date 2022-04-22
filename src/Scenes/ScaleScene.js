@@ -40,11 +40,13 @@ const ScaleScene = ({ nextFunc, _baseGeo, currentLetterNum, audioList, _geo }, r
 
     const letterRefList = Array.from({ length: 26 }, ref => useRef())
     const [isGameStarted, setGameStarted] = useState(false)
+    const skipButton = useRef()
 
     React.useImperativeHandle(ref, () => ({
         playGame: () => {
             letterRefList[currentLetterNum].current.playGame()
             setGameStarted(true)
+            skipButton.current.className = 'aniObject'
         },
     }))
 
@@ -100,6 +102,28 @@ const ScaleScene = ({ nextFunc, _baseGeo, currentLetterNum, audioList, _geo }, r
                 !isGameStarted &&
                 <TitleScene _geo={_geo} _baseGeo={_baseGeo} />
             }
+
+            <div ref={skipButton} className='hideObject'>
+                <div
+                    className='commonButton'
+                    onClick={() => {
+                        setTimeout(() => {
+                            nextFunc();
+                        }, 200);
+                    }}
+                    style={{
+                        position: "fixed", width: _geo.width * 0.055 + "px",
+                        height: _geo.width * 0.055 + "px",
+                        right: "2%"
+                        , bottom: "5%", cursor: "pointer",
+                    }}>
+                    <img
+                        draggable={false}
+                        width={"100%"}
+                        src={prePathUrl() + 'images/Buttons/Skip_blue.svg'}
+                    />
+                </div>
+            </div>
         </div>
     );
 }

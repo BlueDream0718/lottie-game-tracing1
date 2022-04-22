@@ -15,6 +15,8 @@ left : 0%;
 top : 0%;
 `
 
+let timerList = []
+
 export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _geo, _baseGeo }, ref) {
 
 
@@ -51,6 +53,9 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
             moveFunc(aniObjectRef, 0, 'translateX(-35%)')
 
             return () => {
+                timerList.map(timer => clearTimeout(timer))
+                audioList.bodyAudio1.pause()
+                audioList.bodyAudio2.pause()
             }
         }, []
     )
@@ -65,10 +70,10 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
         let introDuration = durationList[0]
         moveFunc(aniObjectRef, introDuration, 'translateX(20%)')
 
-        setTimeout(() => {
+        timerList[0] = setTimeout(() => {
             setAniState(1)
             audioList.bodyAudio1.play();
-            setTimeout(() => {
+            timerList[1] = setTimeout(() => {
                 goFunc()
             }, audioList.bodyAudio1.duration * 1000);
         }, introDuration * 1000);
@@ -81,10 +86,10 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
         moveFunc(backgroundRef, moveDuration, 'translateX(-40%)')
         moveFunc(aniObjectRef, moveDuration, 'translateX(70%)')
 
-        setTimeout(() => {
+        timerList[2] = setTimeout(() => {
             setAniState(2)
             audioList.bodyAudio2.play();
-            setTimeout(() => {
+            timerList[3] = setTimeout(() => {
                 zoomFunc()
             }, 1000);
 
@@ -94,14 +99,14 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
     function zoomFunc() {
         moveFunc(backgroundRef, durationList[2], 'scale(1.5) translate(-60%,10%)')
 
-        setTimeout(() => {
+        timerList[4] = setTimeout(() => {
             nextFunc()
         }, 5000);
     }
 
     React.useImperativeHandle(ref, () => ({
         playGame: () => {
-            setTimeout(() => {
+            timerList[5] = setTimeout(() => {
                 introFunc()
             }, 500);
 

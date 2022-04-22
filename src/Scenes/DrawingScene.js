@@ -411,7 +411,7 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
                                         subReviewFunc()
                                     }, 1500);
 
-                            }, 2000);
+                            }, 3000);
                         }, 600);
                     }, 5000 * value);
             })
@@ -449,11 +449,11 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
                                         }, 1500);
                                     }
                                 }, 1000);
-                            }, 9000);
+                            }, 4000);
                         }, 2000);
-                    }, 12000 * index);
+                    }, 6000 * index);
             })
-        }, audioList.bodyAudio1.duration * 1000 + 500);
+        }, audioList.bodyAudio1.duration * 1000);
     }
     function preload() {
         // this.load.image('letterBase', preName + 'Grey.svg');  //not svg , png
