@@ -101,7 +101,7 @@ export default React.forwardRef(function LetterExplain({ nextFunc, audioList, _g
 
         setTimeout(() => {
             nextFunc()
-        }, durationList[2] * 1000 + 2000);
+        }, durationList[2] * 1000 + 3000);
     }
 
     React.useImperativeHandle(ref, () => ({
