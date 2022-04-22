@@ -274,7 +274,7 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
                 audioList.tapAudio.play()
                 startRepeatAudio();
             }, audioList.bodyAudio1.duration * 1000 + 500);
-        }, 1500);
+        }, 1800);
 
     }
 
