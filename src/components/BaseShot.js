@@ -21,7 +21,7 @@ const currentSceneNumber = 0;
 // let primaryAudio = loadSound('SB03_01')
 // let titleAudio = loadSound('SB03_02')
 
-document.title = "Trace Letter " + letterTurnList[currentSceneNumber]
+document.title = "Trace Letter " + letterTurnList[currentSceneNumber].toLocaleLowerCase()
 
 let bodyAudio1 = loadSound('A/SB01_01') //explain voice
 let bodyAudio2 = loadSound('A/SB01_02')   //clap voice
