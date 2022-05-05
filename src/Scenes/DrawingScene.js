@@ -240,12 +240,14 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
 
     const playAutoAnimation = () => {
         timerList[0] = setTimeout(() => {
-            audioList.bodyAudio1.play();
-            timerList[1] = setTimeout(() => {
-                playerRef.current.play();
-                audioList.bodyAudio1.src = returnVoicePath(0, explainVoices[1])
-            }, audioList.bodyAudio1.duration * 1000 + 500);
-
+            audioList.letterAudio.play()
+            timerList[2] = setTimeout(() => {
+                audioList.bodyAudio1.play();
+                timerList[1] = setTimeout(() => {
+                    playerRef.current.play();
+                    audioList.bodyAudio1.src = returnVoicePath(0, explainVoices[1])
+                }, audioList.bodyAudio1.duration * 1000 + 500);
+            }, audioList.letterAudio.duration * 1000);
         }, 1500);
     }
 
@@ -298,24 +300,30 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
         subObjectsRef.current.className = 'appear'
 
         timerList[1] = setTimeout(() => {
-            audioList.bodyAudio1.play();
-            playScaleFunc()
 
-            timerList[2] = setTimeout(() => {
-                audioList.tapAudio.play()
-                stopScaleFunc()
-                playTapAnimation()
+            audioList.letterAudio.play()
 
-                timerList[3] = setTimeout(() => {
+            timerList[4] = setTimeout(() => {
+                audioList.bodyAudio1.play();
+                playScaleFunc()
 
-                    stopTapAnimation()
-                    startRepeatScaleFunc()
-                    startRepeatAudio();
+                timerList[2] = setTimeout(() => {
+                    audioList.tapAudio.play()
+                    stopScaleFunc()
+                    playTapAnimation()
 
-                }, audioList.tapAudio.duration * 1000);
+                    timerList[3] = setTimeout(() => {
+
+                        stopTapAnimation()
+                        startRepeatScaleFunc()
+                        startRepeatAudio();
+
+                    }, audioList.tapAudio.duration * 1000);
 
 
-            }, audioList.bodyAudio1.duration * 1000 + 500);
+                }, audioList.bodyAudio1.duration * 1000 + 500);
+            }, audioList.letterAudio.duration * 1000);
+
         }, 1800);
 
     }
@@ -472,7 +480,7 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
                     setTimeout(() => {
                         value.current.style.transition = '1.2s'
                         setTimeout(() => {
-                            audioList.letterAudio.play()
+                            audioList.reviewAudio.play()
                             value.current.style.transform = 'scale(1.15)'
                             setTimeout(() => {
                                 value.current.style.transform = 'scale(1)'
@@ -928,26 +936,30 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
                                                 isTracingStarted = true;
 
                                                 timerList[0] = setTimeout(() => {
-                                                    audioList.bodyAudio1.play();
-                                                    playScaleFunc()
 
-                                                    timerList[1] = setTimeout(() => {
-                                                        audioList.tapAudio.play()
+                                                    audioList.letterAudio.play()
+                                                    setTimeout(() => {
+                                                        audioList.bodyAudio1.play();
+                                                        playScaleFunc()
 
-                                                        stopScaleFunc()
-                                                        playTapAnimation()
+                                                        timerList[1] = setTimeout(() => {
+                                                            audioList.tapAudio.play()
 
-                                                        timerList[3] = setTimeout(() => {
+                                                            stopScaleFunc()
+                                                            playTapAnimation()
 
-                                                            startRepeatAudio();
-                                                            startRepeatScaleFunc()
-                                                            stopTapAnimation()
+                                                            timerList[3] = setTimeout(() => {
 
-                                                        }, audioList.tapAudio.duration * 1000);
+                                                                startRepeatAudio();
+                                                                startRepeatScaleFunc()
+                                                                stopTapAnimation()
 
-                                                    }, audioList.bodyAudio1.duration * 1000 + 500);
+                                                            }, audioList.tapAudio.duration * 1000);
 
+                                                        }, audioList.bodyAudio1.duration * 1000 + 500);
+                                                    }, audioList.letterAudio.duration * 1000);
                                                 }, 500);
+
                                             }, timeDur);
 
 
@@ -1408,23 +1420,28 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
                                                             isTracingStarted = true;
 
                                                             timerList[0] = setTimeout(() => {
-                                                                audioList.bodyAudio1.play();
-                                                                playScaleFunc()
+                                                                audioList.letterAudio.play()
 
-                                                                timerList[1] = setTimeout(() => {
-                                                                    stopScaleFunc()
+                                                                timerList[3] = setTimeout(() => {
+                                                                    audioList.bodyAudio1.play();
+                                                                    playScaleFunc()
 
-                                                                    audioList.tapAudio.play()
-                                                                    playTapAnimation()
+                                                                    timerList[1] = setTimeout(() => {
+                                                                        stopScaleFunc()
 
-                                                                    timerList[2] = setTimeout(() => {
-                                                                        startRepeatAudio();
-                                                                        startRepeatScaleFunc()
+                                                                        audioList.tapAudio.play()
+                                                                        playTapAnimation()
 
-                                                                        stopTapAnimation()
+                                                                        timerList[2] = setTimeout(() => {
+                                                                            startRepeatAudio();
+                                                                            startRepeatScaleFunc()
 
-                                                                    }, audioList.tapAudio.duration * 1000);
-                                                                }, audioList.bodyAudio1.duration * 1000 + 500);
+                                                                            stopTapAnimation()
+
+                                                                        }, audioList.tapAudio.duration * 1000);
+                                                                    }, audioList.bodyAudio1.duration * 1000 + 500);
+                                                                }, audioList.letterAudio.duration * 1000);
+
                                                             }, 500);
                                                         }, timeDur);
 
@@ -1689,7 +1706,7 @@ export default function Scene({ nextFunc, _geo, startTransition, audioList, curr
                     style={{
                         position: 'absolute', width: '200%', textAlign: 'center',
                         height: '30%', left: -50 + textInfoList[letterNum][currentImgNumOriginal].left + '%',
-                         top: '90%', fontFamily: 'popinBold',
+                        top: '90%', fontFamily: 'popinBold',
                         fontSize: '5vw'
                     }}>
 

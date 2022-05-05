@@ -16,7 +16,7 @@ let backAudio = loadSound('bMusic', true)
 backAudio.loop = true;
 backAudio.volume = .12;
 
-const currentSceneNumber = 1;
+const currentSceneNumber = 0;
 
 // let primaryAudio = loadSound('SB03_01')
 // let titleAudio = loadSound('SB03_02')
@@ -35,7 +35,8 @@ let reviewAudio1 = loadSound("simple_word/" + letterTurnList[currentSceneNumber]
 let reviewAudio2 = loadSound("simple_word/" + letterTurnList[currentSceneNumber] + '/2')  //word voice
 let reviewAudio3 = loadSound("simple_word/" + letterTurnList[currentSceneNumber] + '/3')  //word voice
 
-let letterAudio = loadSound("say/" + letterTurnList[currentSceneNumber].toLocaleLowerCase())
+let reviewAudio = loadSound("say/" + letterTurnList[currentSceneNumber].toLocaleLowerCase())
+let letterAudio = loadSound("letter/" + letterTurnList[currentSceneNumber].toLocaleLowerCase())
 
 let audioYeah = loadSound('yeah', true)
 let audioWoo = loadSound('woo', true)
@@ -70,7 +71,7 @@ let audioList = {
     backAudio, bodyAudio1, bodyAudio2,
     wordAudio1, wordAudio2, wordAudio3,
     audioYeah, audioWoo, audioSuccess,
-    letterAudio, audioBuzz, audioClap,
+    letterAudio, audioBuzz, audioClap, reviewAudio,
     audioClick, audioTing, replayAudio, spakleAudio,
     reviewAudio1, reviewAudio2, reviewAudio3, tapAudio, bodyAudio3, excellentAudio
 }
