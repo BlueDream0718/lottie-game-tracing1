@@ -16,7 +16,7 @@ let backAudio = loadSound('bMusic', true)
 backAudio.loop = true;
 backAudio.volume = .12;
 
-const currentSceneNumber = 3;
+const currentSceneNumber = 0;
 
 // let primaryAudio = loadSound('SB03_01')
 // let titleAudio = loadSound('SB03_02')
@@ -35,7 +35,7 @@ let reviewAudio1 = loadSound("simple_word/" + letterTurnList[currentSceneNumber]
 let reviewAudio2 = loadSound("simple_word/" + letterTurnList[currentSceneNumber] + '/2')  //word voice
 let reviewAudio3 = loadSound("simple_word/" + letterTurnList[currentSceneNumber] + '/3')  //word voice
 
-let letterAudio = loadSound(letterTurnList[currentSceneNumber] + '/SB01_' + letterVoiceList[currentSceneNumber])
+let letterAudio = loadSound("say/" + letterTurnList[currentSceneNumber].toLocaleLowerCase())
 
 let audioYeah = loadSound('yeah', true)
 let audioWoo = loadSound('woo', true)
@@ -45,6 +45,9 @@ let audioSuccess = loadSound('success', true)
 let audioClick = loadSound('click', true)
 let audioTing = loadSound('ting', true)
 let replayAudio = loadSound('replay', true);
+
+let spakleAudio = loadSound('spakle', true)
+let excellentAudio = loadSound('excellent', true)
 
 const tapPathList = [
     '09', '17', '23', '29', '35', '41', '47',
@@ -61,14 +64,15 @@ audioYeah.volume = 0.25
 audioWoo.volume = 0.5
 audioClick.volume = 0.0
 audioSuccess.volume = 0.5
+spakleAudio.volume = 0.25
 
 let audioList = {
     backAudio, bodyAudio1, bodyAudio2,
     wordAudio1, wordAudio2, wordAudio3,
     audioYeah, audioWoo, audioSuccess,
     letterAudio, audioBuzz, audioClap,
-    audioClick, audioTing, replayAudio,
-    reviewAudio1, reviewAudio2, reviewAudio3,tapAudio,bodyAudio3
+    audioClick, audioTing, replayAudio, spakleAudio,
+    reviewAudio1, reviewAudio2, reviewAudio3, tapAudio, bodyAudio3, excellentAudio
 }
 
 var isOff = false;
